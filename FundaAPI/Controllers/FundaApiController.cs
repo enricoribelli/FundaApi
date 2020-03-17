@@ -39,7 +39,7 @@ namespace FundaAPI.Controllers
         {
             var result = new FundaResponseViewModel();
 
-            UriBuilder builder = new UriBuilder("http://partnerapi.funda.nl/feeds/Aanbod.svc/json/ac1b0b1572524640a0ecc54de453ea9f/?type=koop&amp;zo=/amsterdam/")
+            UriBuilder builder = new UriBuilder("http://partnerapi.funda.nl/feeds/Aanbod.svc/json/ac1b0b1572524640a0ecc54de453ea9f/?type=koop&amp;zo=/amsterdam/&page=3600&pagesize=25")
             {
                 
             };

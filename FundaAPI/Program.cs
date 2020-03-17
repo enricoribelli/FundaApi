@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using FundaAPI.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -15,7 +16,7 @@ namespace FundaAPI
     {
         public static void Main(string[] args)
         {
-            var webHostBuilder = CreateHostBuilder(args).Build();
+            var webHost = CreateHostBuilder(args).Build();
 
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -27,10 +28,14 @@ namespace FundaAPI
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
 
+            var scraper = (IScraper)webHost.Services.GetService(typeof(IScraper));
+            scraper.ScrapeObjects();
+            //webHost.Services.GetService<>
+
             try
             {
                 Log.Information("Starting web host");
-                webHostBuilder.Run();
+                webHost.Run();
             }
             catch (Exception ex)
             {

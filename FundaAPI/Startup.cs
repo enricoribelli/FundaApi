@@ -49,6 +49,7 @@ namespace FundaAPI
             });
 
             services.AddTransient<IApiCaller, ApiCaller>();
+            services.AddSingleton<IScraper, Scraper>();
 
             // Inject IHttpClientFactory
             services.AddHttpClient();
