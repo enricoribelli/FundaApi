@@ -5,10 +5,16 @@ using System.Threading.Tasks;
 
 namespace FundaAPI.Interfaces
 {
-    interface IScraper
+    public interface IScraper
     {
-        Task ScrapeObjects();
+        Task ScrapeObjects(int page = 1);
 
-        Task ScrapeObjectsWithGarden();
+        Task ScrapeObjectsWithGarden(int page = 1);
+
+        List<KeyValuePair<string, int>> GetMakelaarsWithPropertiesAmount();
+        List<KeyValuePair<string, int>> GetMakelaarsWithPropertiesWithGardenAmount();
+
+        bool GetPropertiesScrapingStatus();
+        bool GetPropertiesWithGardenScrapingStatus();
     }
 }

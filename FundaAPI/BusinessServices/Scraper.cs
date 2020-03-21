@@ -1,53 +1,103 @@
 ﻿using FundaAPI.Interfaces;
 using FundaAPI.Models.ApiModels;
-using Microsoft.VisualStudio.Web.CodeGeneration.Utils;
+using FundaAPI.Options;
+using Microsoft.Extensions.Options;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FundaAPI.BusinessServices
 {
-    
+
 
     public class Scraper : IScraper
     {
         private readonly IApiCaller _apiCaller;
-        private Dictionary<string, int> makelaarsProperties;
-        private Dictionary<string, int> makelaarsPropertiesWithGarden;
+        public Dictionary<string, int> makelaarsWithPropertiesAmount;
+        public Dictionary<string, int> makelaarsWithPropertiesWithGardenAmount;
         private bool isObjectSearchCompleted;
         private bool isObjectWithGardenSearchCompleted;
+        private readonly IOptions<ApiSettings> _apiSettings;
 
 
 
-        public Scraper(IApiCaller apiCaller)
+        public Scraper(IApiCaller apiCaller, IOptions<ApiSettings> apiSettings)
         {
-            Requires.NotNull(apiCaller, nameof(apiCaller));
-
+            _apiSettings = apiSettings;
             _apiCaller = apiCaller;
-            makelaarsProperties = new Dictionary<string, int>();
+            makelaarsWithPropertiesAmount = new Dictionary<string, int>();
+            makelaarsWithPropertiesWithGardenAmount = new Dictionary<string, int>();
         }
 
-
-        public async Task ScrapeObjects()
+        public List<KeyValuePair<string, int>> GetMakelaarsWithPropertiesAmount()
         {
-            UriBuilder builder = new UriBuilder("http://partnerapi.funda.nl/feeds/Aanbod.svc/json/ac1b0b1572524640a0ecc54de453ea9f/?type=koop&amp;zo=/amsterdam/&page=2600&pagesize=25");
+            var sum = 0;
+            makelaarsWithPropertiesAmount.ToList().ForEach(x => sum = sum + x.Value);
+
+
+            var sortedMakelaars = makelaarsWithPropertiesAmount.OrderByDescending(x => x.Value);
+            return sortedMakelaars.Take(10).ToList();
+        }
+
+        public List<KeyValuePair<string, int>> GetMakelaarsWithPropertiesWithGardenAmount()
+        {
+            var sortedMakelaars = makelaarsWithPropertiesWithGardenAmount.OrderByDescending(x => x.Value);
+            return sortedMakelaars.Take(10).ToList();
+        }
+
+        public bool GetPropertiesScrapingStatus()
+        {
+            return isObjectSearchCompleted;
+        }
+
+        public bool GetPropertiesWithGardenScrapingStatus()
+        {
+            return isObjectWithGardenSearchCompleted;
+        }
+
+        public async Task ScrapeObjects(int page)
+        {
             try
             {
                 while (!isObjectSearchCompleted)
                 {
+                    UriBuilder builder = new UriBuilder(_apiSettings.Value.FundaUrl)
+                    {
+                        Query = $"?type=koop&amp;zo=/amsterdam/&page={page}&pagesize=25"
+                    };
                     var fundaResult = await _apiCaller.GetResponseAsync<FundaResponseModel>(builder.Uri).ConfigureAwait(false);
+                    await Task.Delay(TimeSpan.FromSeconds(1));
 
                     if (fundaResult != null)
                     {
-                        foreach(var obj in fundaResult.Objects)
+                        foreach (var obj in fundaResult.Objects)
                         {
-                            UpdateDictionary(makelaarsProperties, obj.MakelaarNaam);
+                            UpdateDictionary(makelaarsWithPropertiesAmount, obj.MakelaarNaam);
                         }
                     }
-                    if (!fundaResult.Objects.Any()) isObjectSearchCompleted = true;
+                    if (!fundaResult.Objects.Any())
+                    {
+                        isObjectSearchCompleted = true;
+                    }
+                    else
+                    {
+                        page++;
+                    }
                 }
+            }
+            catch (HttpRequestException ex)
+            {
+                //we could have other kinds of http exception
+                if (ex.Message == "Response status code does not indicate success: 401 (Request limit exceeded).")
+                {
+                    Thread.Sleep(TimeSpan.FromSeconds(60));
+                    ScrapeObjects(page);
+                }
+                Log.Fatal(ex, ex.Message);
             }
             catch (Exception ex)
             {
@@ -56,24 +106,45 @@ namespace FundaAPI.BusinessServices
 
         }
 
-        public async Task ScrapeObjectsWithGarden()
+        public async Task ScrapeObjectsWithGarden(int page)
         {
-            UriBuilder builder = new UriBuilder("http://partnerapi.funda.nl/feeds/Aanbod.svc/json/ac1b0b1572524640a0ecc54de453ea9f/?type=koop&amp;zo=/amsterdam/tuin/&page=2600&pagesize=25");
             try
             {
                 while (!isObjectWithGardenSearchCompleted)
                 {
+                    UriBuilder builder = new UriBuilder(_apiSettings.Value.FundaUrl)
+                    {
+                        Query = $"?type=koop&amp;zo=/amsterdam/tuin/&page={page}&pagesize=25"
+                    };
                     var fundaResult = await _apiCaller.GetResponseAsync<FundaResponseModel>(builder.Uri).ConfigureAwait(false);
+                    await Task.Delay(TimeSpan.FromSeconds(1));
 
                     if (fundaResult != null)
                     {
                         foreach (var obj in fundaResult.Objects)
                         {
-                            UpdateDictionary(makelaarsPropertiesWithGarden, obj.MakelaarNaam);
+                            UpdateDictionary(makelaarsWithPropertiesWithGardenAmount, obj.MakelaarNaam);
                         }
                     }
-                    if (!fundaResult.Objects.Any()) isObjectSearchCompleted = true;
+                    if (!fundaResult.Objects.Any())
+                    {
+                        isObjectWithGardenSearchCompleted = true;
+                    }
+                    else
+                    {
+                        page++;
+                    }
                 }
+            }
+            catch (HttpRequestException ex)
+            {
+                //we could have other kinds of http exception
+                if (ex.Message == "Response status code does not indicate success: 401 (Request limit exceeded).")
+                {
+                    Thread.Sleep(TimeSpan.FromSeconds(60));
+                    ScrapeObjectsWithGarden(page);
+                }
+                Log.Fatal(ex, ex.Message);
             }
             catch (Exception ex)
             {
@@ -91,10 +162,10 @@ namespace FundaAPI.BusinessServices
             }
             else
             {
-                dict.Add(key, 0);
+                dict.Add(key, 1);
             }
         }
 
-        
+
     }
 }

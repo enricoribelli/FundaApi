@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using FundaAPI.Interfaces;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +30,10 @@ namespace FundaAPI
                 .CreateLogger();
 
             var scraper = (IScraper)webHost.Services.GetService(typeof(IScraper));
-            scraper.ScrapeObjects();
+            
+            scraper.ScrapeObjects(1);
+            scraper.ScrapeObjectsWithGarden();
+
             //webHost.Services.GetService<>
 
             try

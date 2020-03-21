@@ -7,11 +7,11 @@ namespace FundaAPI.Models.ApiModels
 {
     public class FundaResponseModel
     {
-        public List<Object> Objects { get; set; }
+        public List<FundaObject> Objects { get; set; }
     }
 
 
-    public class Object
+    public class FundaObject
     {
         public string MakelaarNaam { get; set; }
     }
