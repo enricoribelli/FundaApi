@@ -94,7 +94,7 @@ namespace FundaAPI.BusinessServices
                         Query = $"?type=koop&amp;zo=/amsterdam/tuin/&page={page}&pagesize=25"
                     };
                     var fundaResult = await _apiCaller.GetResponseAsync<FundaResponseModel>(builder.Uri).ConfigureAwait(false);
-                    //await Task.Delay(1300);//to be on the safe side I wait a little bit longer than needed
+                    await Task.Delay(1300);//to be on the safe side I wait a little bit longer than needed
 
                     if (fundaResult != null)
                     {
