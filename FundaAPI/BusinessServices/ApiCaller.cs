@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace FundaAPI.BusinessServices
 {
+    //Service responsible to make and manage the HTTP calls towards the external Funda Api
     public class ApiCaller : IApiCaller
     {
         private readonly IHttpClientFactory _httpFactory;

@@ -31,10 +31,8 @@ namespace FundaAPI
 
             var scraper = (IScraper)webHost.Services.GetService(typeof(IScraper));
             
-            scraper.ScrapeObjects(1);
+            scraper.ScrapeObjects();
             scraper.ScrapeObjectsWithGarden();
-
-            //webHost.Services.GetService<>
 
             try
             {

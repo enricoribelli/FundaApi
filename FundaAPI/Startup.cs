@@ -23,13 +23,9 @@ namespace FundaAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            //Adding Automapper
-            services.AddAutoMapper(typeof(Startup));
 
             services.AddSwaggerGen(options =>
             {
@@ -44,17 +40,14 @@ namespace FundaAPI
             services.AddTransient<IApiCaller, ApiCaller>();
             services.AddSingleton<IScraper, Scraper>();
 
-            // Inject IHttpClientFactory
             services.AddHttpClient();
 
-            // Inject IOptions<T>
             services.AddOptions();
             var apiSettings = Configuration.GetSection("ApiSettings");
             services.Configure<ApiSettings>(apiSettings);
             var readyToUseApiSettings = apiSettings.Get<ApiSettings>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

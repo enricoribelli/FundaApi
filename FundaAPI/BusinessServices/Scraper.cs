@@ -12,8 +12,7 @@ using System.Threading.Tasks;
 
 namespace FundaAPI.BusinessServices
 {
-
-
+    //Long time running service started at startup of our API that scrapes the external Funda Api
     public class Scraper : IScraper
     {
         private readonly IApiCaller _apiCaller;
@@ -33,32 +32,7 @@ namespace FundaAPI.BusinessServices
             makelaarsWithPropertiesWithGardenAmount = new Dictionary<string, int>();
         }
 
-        public List<KeyValuePair<string, int>> GetMakelaarsWithPropertiesAmount()
-        {
-            var sum = 0;
-            makelaarsWithPropertiesAmount.ToList().ForEach(x => sum = sum + x.Value);
-
-
-            var sortedMakelaars = makelaarsWithPropertiesAmount.OrderByDescending(x => x.Value);
-            return sortedMakelaars.Take(10).ToList();
-        }
-
-        public List<KeyValuePair<string, int>> GetMakelaarsWithPropertiesWithGardenAmount()
-        {
-            var sortedMakelaars = makelaarsWithPropertiesWithGardenAmount.OrderByDescending(x => x.Value);
-            return sortedMakelaars.Take(10).ToList();
-        }
-
-        public bool GetPropertiesScrapingStatus()
-        {
-            return isObjectSearchCompleted;
-        }
-
-        public bool GetPropertiesWithGardenScrapingStatus()
-        {
-            return isObjectWithGardenSearchCompleted;
-        }
-
+        //Scrapes properties without garden
         public async Task ScrapeObjects(int page)
         {
             try
@@ -70,7 +44,7 @@ namespace FundaAPI.BusinessServices
                         Query = $"?type=koop&amp;zo=/amsterdam/&page={page}&pagesize=25"
                     };
                     var fundaResult = await _apiCaller.GetResponseAsync<FundaResponseModel>(builder.Uri).ConfigureAwait(false);
-                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    await Task.Delay(1300);//to be on the safe side I wait a little bit longer than needed
 
                     if (fundaResult != null)
                     {
@@ -91,13 +65,15 @@ namespace FundaAPI.BusinessServices
             }
             catch (HttpRequestException ex)
             {
+                Log.Error(ex, ex.Message);
+
                 //we could have other kinds of http exception
                 if (ex.Message == "Response status code does not indicate success: 401 (Request limit exceeded).")
                 {
                     Thread.Sleep(TimeSpan.FromSeconds(60));
-                    ScrapeObjects(page);
+                    await ScrapeObjects(page);
                 }
-                Log.Fatal(ex, ex.Message);
+                
             }
             catch (Exception ex)
             {
@@ -106,6 +82,7 @@ namespace FundaAPI.BusinessServices
 
         }
 
+        //Scrapes properties with garden
         public async Task ScrapeObjectsWithGarden(int page)
         {
             try
@@ -117,7 +94,7 @@ namespace FundaAPI.BusinessServices
                         Query = $"?type=koop&amp;zo=/amsterdam/tuin/&page={page}&pagesize=25"
                     };
                     var fundaResult = await _apiCaller.GetResponseAsync<FundaResponseModel>(builder.Uri).ConfigureAwait(false);
-                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    //await Task.Delay(1300);//to be on the safe side I wait a little bit longer than needed
 
                     if (fundaResult != null)
                     {
@@ -138,19 +115,50 @@ namespace FundaAPI.BusinessServices
             }
             catch (HttpRequestException ex)
             {
+                Log.Error(ex, ex.Message);
+
                 //we could have other kinds of http exception
                 if (ex.Message == "Response status code does not indicate success: 401 (Request limit exceeded).")
                 {
                     Thread.Sleep(TimeSpan.FromSeconds(60));
-                    ScrapeObjectsWithGarden(page);
+                    await ScrapeObjectsWithGarden(page);
                 }
-                Log.Fatal(ex, ex.Message);
             }
             catch (Exception ex)
             {
                 Log.Fatal(ex, ex.Message);
             }
 
+        }
+
+        public bool GetPropertiesScrapingStatus()
+        {
+            return isObjectSearchCompleted;
+        }
+
+        public bool GetPropertiesWithGardenScrapingStatus()
+        {
+            return isObjectWithGardenSearchCompleted;
+        }
+
+        public List<KeyValuePair<string, int>> GetMakelaarsWithPropertiesAmount()
+        {
+            var sum = 0;
+            makelaarsWithPropertiesAmount.ToList().ForEach(x => sum = sum + x.Value);
+
+
+            var sortedMakelaars = makelaarsWithPropertiesAmount.OrderByDescending(x => x.Value);
+
+            //out of all the scraped results, the 10 with the highest amount of properties must be returned
+            return sortedMakelaars.Take(10).ToList();
+        }
+
+        public List<KeyValuePair<string, int>> GetMakelaarsWithPropertiesWithGardenAmount()
+        {
+            var sortedMakelaars = makelaarsWithPropertiesWithGardenAmount.OrderByDescending(x => x.Value);
+
+            //out of all the scraped results, the 10 with the highest amount of properties must be returned
+            return sortedMakelaars.Take(10).ToList();
         }
 
 
