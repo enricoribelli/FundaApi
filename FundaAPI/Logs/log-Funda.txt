@@ -1,0 +1,31 @@
+2020-03-22 18:54:48.882 +01:00 [INF] Starting web host
+2020-03-22 18:55:58.429 +01:00 [ERR] Response status code does not indicate success: 401 (Request limit exceeded).
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 401 (Request limit exceeded).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at FundaAPI.BusinessServices.ApiCaller.GetResponseAsync[T](Uri url) in C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\BusinessServices\ApiCaller.cs:line 33
+   at FundaAPI.BusinessServices.Scraper.ScrapeObjects(Int32 page) in C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\BusinessServices\Scraper.cs:line 46
+2020-03-22 18:55:58.321 +01:00 [ERR] Response status code does not indicate success: 401 (Request limit exceeded).
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 401 (Request limit exceeded).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at FundaAPI.BusinessServices.ApiCaller.GetResponseAsync[T](Uri url) in C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\BusinessServices\ApiCaller.cs:line 33
+   at FundaAPI.BusinessServices.Scraper.ScrapeObjectsWithGarden(Int32 page) in C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\BusinessServices\Scraper.cs:line 96
+2020-03-22 18:57:53.522 +01:00 [ERR] Response status code does not indicate success: 401 (Request limit exceeded).
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 401 (Request limit exceeded).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at FundaAPI.BusinessServices.ApiCaller.GetResponseAsync[T](Uri url) in C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\BusinessServices\ApiCaller.cs:line 33
+   at FundaAPI.BusinessServices.Scraper.ScrapeObjectsWithGarden(Int32 page) in C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\BusinessServices\Scraper.cs:line 96
+2020-03-22 18:57:53.705 +01:00 [ERR] Response status code does not indicate success: 401 (Request limit exceeded).
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 401 (Request limit exceeded).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at FundaAPI.BusinessServices.ApiCaller.GetResponseAsync[T](Uri url) in C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\BusinessServices\ApiCaller.cs:line 33
+   at FundaAPI.BusinessServices.Scraper.ScrapeObjects(Int32 page) in C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\BusinessServices\Scraper.cs:line 46
+2020-03-22 18:59:34.975 +01:00 [ERR] Response status code does not indicate success: 401 (Request limit exceeded).
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 401 (Request limit exceeded).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at FundaAPI.BusinessServices.ApiCaller.GetResponseAsync[T](Uri url) in C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\BusinessServices\ApiCaller.cs:line 33
+   at FundaAPI.BusinessServices.Scraper.ScrapeObjects(Int32 page) in C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\BusinessServices\Scraper.cs:line 46
+2020-03-22 18:59:35.308 +01:00 [ERR] Response status code does not indicate success: 401 (Request limit exceeded).
+System.Net.Http.HttpRequestException: Response status code does not indicate success: 401 (Request limit exceeded).
+   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at FundaAPI.BusinessServices.ApiCaller.GetResponseAsync[T](Uri url) in C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\BusinessServices\ApiCaller.cs:line 33
+   at FundaAPI.BusinessServices.Scraper.ScrapeObjectsWithGarden(Int32 page) in C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\BusinessServices\Scraper.cs:line 96

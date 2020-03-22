@@ -103,3 +103,4 @@ C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\bin\Debug\netcoreapp3.1\S
 C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\obj\Debug\netcoreapp3.1\FundaAPI.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\obj\Debug\netcoreapp3.1\FundaAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\obj\Debug\netcoreapp3.1\FundaAPI.csprojAssemblyReference.cache
