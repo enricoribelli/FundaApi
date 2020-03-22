@@ -12,13 +12,11 @@ using System.Text;
 
 namespace FundaAPIIntegrationTests
 {
-
-   
-
     public class FundaApiServiceIntegrationTestBase
     {
         protected readonly HttpClient _client;
         protected readonly ApiSettings _apiSettings;
+        protected readonly IScraper _scraper;
 
         public FundaApiServiceIntegrationTestBase()
         {
@@ -38,10 +36,7 @@ namespace FundaAPIIntegrationTests
             var server = new TestServer(builder);
             _client = server.CreateClient();
 
-            //TODO: remove
-            //var scraper = (IScraper)server.Services.GetService(typeof(IScraper));
-
-            //scraper.ScrapeObjects();
+            _scraper = (IScraper)server.Services.GetService(typeof(IScraper));
         }
     }
 }

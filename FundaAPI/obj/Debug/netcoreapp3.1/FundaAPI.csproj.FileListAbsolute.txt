@@ -2,7 +2,6 @@ C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\bin\Debug\netcoreapp3.1\a
 C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\bin\Debug\netcoreapp3.1\FundaAPI.exe
-C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\obj\Debug\netcoreapp3.1\FundaAPI.csprojAssemblyReference.cache
 C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\obj\Debug\netcoreapp3.1\FundaAPI.AssemblyInfoInputs.cache
 C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\obj\Debug\netcoreapp3.1\FundaAPI.AssemblyInfo.cs
 C:\Users\enrico.ribelli\source\repos\FundaAPI\FundaAPI\obj\Debug\netcoreapp3.1\FundaAPI.RazorTargetAssemblyInfo.cache

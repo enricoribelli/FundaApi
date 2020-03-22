@@ -14,13 +14,7 @@ namespace FundaAPIIntegrationTests.IntegrationTest
     public class FundaApiControllerTest : FundaApiServiceIntegrationTestBase
     {
 
-        private string ControllerPath => "api/FundaApi/GetMakelaarsWithPropertiesWithGardenAmount";
-        private readonly IScraper _scraper;
-
-        public FundaApiControllerTest()
-        {
-            _scraper = new Scraper(); ;
-        }
+        private string ControllerPath => "api/FundaApi/GetMakelaarsWithPropertiesAmount";
 
         [Fact]
         public async Task GetApisResult_WithFullResponse()
@@ -39,13 +33,12 @@ namespace FundaAPIIntegrationTests.IntegrationTest
             var responseContent = await response.Content.ReadAsStringAsync();
             var deserializedResponse = JsonConvert.DeserializeObject<FundaResponseViewModel>(responseContent);
 
-            //Assert.Equal(deserializedResponse.Books.Count, _apiSettings.GoogleApiMaxResult);
-            //Assert.Equal(deserializedResponse.Albums.Count, _apiSettings.ItunesApiMaxResult);
-            //Assert.Equal(deserializedResponse.Books[0].Title, $"testBookTitle");
-            //Assert.Equal(deserializedResponse.Books[0].Author, $"testAuthorName");
-            //Assert.Equal(deserializedResponse.Albums[0].Title, $"testCollectionName");
-            //Assert.Equal(deserializedResponse.Albums[0].Author, $"testArtistName");
-
+            Assert.True(deserializedResponse.IsScrapingComplete);
+            Assert.Equal(2, deserializedResponse.MakelaarsWithPropertiesAmount.Count);
+            Assert.Equal("TestMakelaar1", deserializedResponse.MakelaarsWithPropertiesAmount[0].Key);
+            Assert.Equal(2, deserializedResponse.MakelaarsWithPropertiesAmount[0].Value);
+            Assert.Equal("TestMakelaar2", deserializedResponse.MakelaarsWithPropertiesAmount[1].Key);
+            Assert.Equal(1, deserializedResponse.MakelaarsWithPropertiesAmount[1].Value);
         }
     }
 }
