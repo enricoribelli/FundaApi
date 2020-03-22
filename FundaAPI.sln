@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FundaAPI", "FundaAPI\FundaAPI.csproj", "{E0B3609B-4759-452E-BA58-10A7940A9063}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundaAPITests", "FundaAPITests\FundaAPITests.csproj", "{31BDCD75-3AFA-4EDC-B204-B182E3B72A1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundaAPIIntegrationTests", "FundaAPIIntegrationTests\FundaAPIIntegrationTests.csproj", "{BC435335-DE47-4620-B6D0-356B4ED9E2F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WireMock", "WireMock\WireMock.csproj", "{B913014A-1811-4CAB-9D44-70AF18EAB37D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0B3609B-4759-452E-BA58-10A7940A9063}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0B3609B-4759-452E-BA58-10A7940A9063}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0B3609B-4759-452E-BA58-10A7940A9063}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0B3609B-4759-452E-BA58-10A7940A9063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31BDCD75-3AFA-4EDC-B204-B182E3B72A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31BDCD75-3AFA-4EDC-B204-B182E3B72A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31BDCD75-3AFA-4EDC-B204-B182E3B72A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31BDCD75-3AFA-4EDC-B204-B182E3B72A1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC435335-DE47-4620-B6D0-356B4ED9E2F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC435335-DE47-4620-B6D0-356B4ED9E2F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC435335-DE47-4620-B6D0-356B4ED9E2F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC435335-DE47-4620-B6D0-356B4ED9E2F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B913014A-1811-4CAB-9D44-70AF18EAB37D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B913014A-1811-4CAB-9D44-70AF18EAB37D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B913014A-1811-4CAB-9D44-70AF18EAB37D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B913014A-1811-4CAB-9D44-70AF18EAB37D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB28B370-D344-4478-9EE2-61AD711ADFE0}
+	EndGlobalSection
+EndGlobal
